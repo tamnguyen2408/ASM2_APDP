@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "Name": "Website Design \u0026 Development",
+    "Class": "IT0602",
+    "Major": "IT",
+    "Lecturer": "Nguyen Thanh Trieu",
+    "Status": "Active",
+    "Teacher": null
+  },
+  {
+    "Id": 3,
+    "Name": "SDLC",
+    "Class": "IT0602",
+    "Major": "IT",
+    "Lecturer": "Nguyen Thanh Trieu",
+    "Status": "Active",
+    "Teacher": null
+  }
+]

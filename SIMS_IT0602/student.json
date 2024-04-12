@@ -1,0 +1,18 @@
+[
+  {
+    "Id": 1,
+    "Name": "hoan",
+    "DoB": "2004-09-25T00:00:00",
+    "Email": "Hoandp@fpt.edu.vn",
+    "Address": "Bac Giang",
+    "Major": "IT"
+  },
+  {
+    "Id": 3,
+    "Name": "Nguyen Hai Nam",
+    "DoB": "2004-09-02T00:00:00",
+    "Email": "namnh05@gmail.com",
+    "Address": "Ha Noi",
+    "Major": "Graphic Design"
+  }
+]

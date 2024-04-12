@@ -1,0 +1,45 @@
+﻿@model User
+@{
+    Layout = "~/Views/Shared/login_layout.cshtml";
+}
+@using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { @class = "form-wrapper sign-in" }))
+{
+    <div class="wrapper">
+        <h2>Login</h2>
+        <div class="input-group">
+            @Html.TextBoxFor(m => m.UserName)
+            <label class="label">Username</label>
+        </div>
+
+        <div class="input-group">
+            @Html.PasswordFor(m => m.Pass)
+            <label class="label">Password</label>
+        </div>
+        <div class="remember">
+            <label><input type="checkbox"> Remember me</label>
+        </div>
+        <button type="submit">Login</button>
+        <div class="signUp-link">
+            <p>Don't have an account? <a href="#" class="signUpBtn-link">Sign Up</a></p>
+        </div>
+    </div>
+}
+
+<div class="error-message">
+    @ViewBag.error
+</div>
+
+
+        
+           
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Add event listener to the sign-up link
+            document.querySelector(".signUp-link a").addEventListener("click", function (event) {
+                // Prevent the default action of the link
+                event.preventDefault();
+                // Redirect to the registration page
+                window.location.href = "/Authentication/Register"; // Update this path with the correct path to your registration page
+            });
+        });
+    </script>

@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 4,
+    "ClassName": "IT0601",
+    "Major": "IT",
+    "Lecturer": "Nguyen Van Toan"
+  },
+  {
+    "Id": 2,
+    "ClassName": "IT0601",
+    "Major": "IT",
+    "Lecturer": "Nguyen Thanh Trieu"
+  },
+  {
+    "Id": 3,
+    "ClassName": "IT0602",
+    "Major": "Graphic Design",
+    "Lecturer": "Nguyen Thuy Trang"
+  }
+]

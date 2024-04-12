@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "Name": "Do Quoc Binh",
+    "DoB": "1980-06-22T00:00:00",
+    "Course": "Website Design \u0026 Development"
+  },
+  {
+    "Id": 2,
+    "Name": "Nguyen Van Toan",
+    "DoB": "2002-03-12T00:00:00",
+    "Course": "Website Design \u0026 Development"
+  },
+  {
+    "Id": 3,
+    "Name": "Nguyen Thanh Trieu",
+    "DoB": "1990-08-04T00:00:00",
+    "Course": "SDLC"
+  }
+]
