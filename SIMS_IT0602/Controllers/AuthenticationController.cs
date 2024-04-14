@@ -99,33 +99,35 @@ namespace SIMS_IT0602.Controllers
                 {
                     // Add model error for confirm password mismatch
                     ModelState.AddModelError("ConfirmPass", "Passwords do not match");
-                    return View("Register", user);
                 }
-
-                // Load existing users from the JSON file
-                List<User> users = LoadUsersFromFile("users.json");
-
-                // Check if the username already exists
-                if (users.Any(u => u.UserName == user.UserName))
+                else
                 {
-                    ModelState.AddModelError("UserName", "Username already exists");
-                    return View("Register", user);
+                    // Load existing users from the JSON file
+                    List<User> users = LoadUsersFromFile("users.json");
+
+                    // Check if the username already exists
+                    if (users.Any(u => u.UserName == user.UserName))
+                    {
+                        ModelState.AddModelError("UserName", "Username already exists");
+                    }
+                    else
+                    {
+                        // Add the new user to the list of users
+                        users.Add(user);
+
+                        // Serialize the list of users back to JSON
+                        string jsonString = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
+
+                        // Write the updated JSON string back to the file
+                        System.IO.File.WriteAllText("users.json", jsonString);
+
+                        // Redirect to the Login page
+                        return RedirectToAction("Login");
+                    }
                 }
-
-                // Add the new user to the list of users
-                users.Add(user);
-
-                // Serialize the list of users back to JSON
-                string jsonString = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
-
-                // Write the updated JSON string back to the file
-                System.IO.File.WriteAllText("users.json", jsonString);
-
-                // Redirect to the Login page
-                return RedirectToAction("Login");
             }
 
-            // If ModelState is not valid, return the view with validation errors
+            // If ModelState is not valid or there are errors, return the view with validation errors
             return View("Register", user);
         }
 

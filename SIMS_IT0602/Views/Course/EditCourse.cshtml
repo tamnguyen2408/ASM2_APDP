@@ -60,12 +60,8 @@
     <div class="form-group text-right">
         <!-- Đổi lớp form-group thành text-right để căn phải -->
         <button type="submit" class="btn btn-primary">Save</button>
-        <button type="button" id="cancelBtn" class="btn btn-warning">Cancel</button>
+            <a href="@Url.Action("ManageCourse", "Course")" class="btn btn-warning">Cancel</a>
     </div>
 }
-    <script>
-        document.getElementById("cancelBtn").addEventListener("click", function () {
-            window.location.href = "/Course/ManageCourse";
-        });
-    </script>
+
     </section>

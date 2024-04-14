@@ -3,7 +3,7 @@
     "Id": 4,
     "ClassName": "IT0601",
     "Major": "IT",
-    "Lecturer": "Nguyen Van Toan"
+    "Lecturer": "Nguyen Thanh Trieu"
   },
   {
     "Id": 2,
@@ -16,5 +16,11 @@
     "ClassName": "IT0602",
     "Major": "Graphic Design",
     "Lecturer": "Nguyen Thuy Trang"
+  },
+  {
+    "Id": 0,
+    "ClassName": "IT0603",
+    "Major": "IT",
+    "Lecturer": "Do Quoc Binh"
   }
 ]

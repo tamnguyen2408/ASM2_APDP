@@ -1,6 +1,6 @@
 ﻿@model Class
 @{
-    ViewData["Title"] = " Edit Class";
+    ViewData["Title"] = "Edit Class";
     Layout = "~/Views/Shared/LayoutAdmin.cshtml";
 }
 <link href="~/Manage.css" rel="stylesheet" />
@@ -14,8 +14,6 @@
             <ul class="main-menu">
                 <li><a href="/Admin/Index" class="external">Home</a></li>
                 <li><a href="/Authentication/Logout" class="external">Logout</a></li>
-
-
             </ul>
         </nav>
     </header>
@@ -23,32 +21,28 @@
 <section class="content">
     <h1 class="text-center" style="color: orange; margin-top:80px;">Edit Class</h1>
 
-@using (Html.BeginForm("Save", "Class", FormMethod.Post))
-{
-    @Html.HiddenFor(m => m.Id)
+    @using (Html.BeginForm("Edit", "Class", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.Id)
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.ClassName, new { Class = "control-label" })
-        @Html.TextBoxFor(m => m.ClassName, new { Class = "form-control" })
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Major, new { Class = "control-label" })
-        @Html.TextBoxFor(m => m.Major, new { Class = "form-control" })
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Lecturer, new { Class = "control-label" })
-        @Html.TextBoxFor(m => m.Lecturer, new { Class = "form-control" })
-    </div>
-    <div class="form-group text-right">
-        <!-- Đổi lớp form-group thành text-right để căn phải -->
-        <button type="submit" class="btn btn-primary">Save</button>
-        <button type="button" id="cancelBtn" class="btn btn-warning">Cancel</button>
-    </div>
-
-}
-    <script>
-        document.getElementById("cancelBtn").addEventListener("click", function () {
-            window.location.href = "/Class/ManageClass";
-        });
-    </script>
-    </section>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ClassName, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.ClassName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ClassName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Major, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Major, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Major, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Lecturer, new { @class = "control-label" })
+            @Html.DropDownListFor(m => m.Lecturer, new SelectList(ViewBag.SelectTeacher, "Name", "Name"), "-- Select Lecturer --", new { Class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Lecturer, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group text-right">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="@Url.Action("ManageClass", "Class")" class="btn btn-warning">Cancel</a>
+        </div>
+    }
+</section>
