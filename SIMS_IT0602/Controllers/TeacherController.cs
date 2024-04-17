@@ -77,15 +77,13 @@ namespace SIMS_IT0602.Controllers
         }
 
         [HttpPost]
-        public IActionResult NewTeacher(Teacher teacher, List<Course> courses)
+        public IActionResult NewTeacher(Teacher teacher)
         {
             if (ModelState.IsValid)
             {
                 teachers.Add(teacher);
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 string jsonString = JsonSerializer.Serialize(teachers, options);
-                ViewBag.SelectCourse = new SelectList(courses, "Name", "Name");
-                ViewBag.SelectCourse = courses;
                 // Save file
                 System.IO.File.WriteAllText("teacher.json", jsonString);
 
@@ -94,10 +92,9 @@ namespace SIMS_IT0602.Controllers
             }
             else
             {
-                // If model state is not valid, reload the list of courses and return to the view with validation errors
-                List<Course> allCourses = LoadCourseFromFile("course.json");
-                ViewBag.SelectCourse = new SelectList(allCourses, "Name", "Name");
-                return View("NewTeacher", teacher);
+                List<Course> courses = LoadCourseFromFile("course.json");
+                ViewBag.SelectCourse = courses;
+                return View();
             }
         }
 

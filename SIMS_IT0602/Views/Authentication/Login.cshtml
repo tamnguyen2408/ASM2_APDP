@@ -4,30 +4,33 @@
 }
 @using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { @class = "form-wrapper sign-in" }))
 {
-    <div class="wrapper">
-        <h2>Login</h2>
-        <div class="input-group">
-            @Html.TextBoxFor(m => m.UserName)
-            <label class="label">Username</label>
-        </div>
+        <div class="wrapper">
+            <h2>Login</h2>
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.UserName)
+                <label class="label">Username</label>
+            </div>
 
-        <div class="input-group">
-            @Html.PasswordFor(m => m.Pass)
-            <label class="label">Password</label>
+            <div class="input-group">
+                @Html.PasswordFor(m => m.Pass)
+                <label class="label">Password</label>
+            </div>
+            <div class="remember">
+                <label><input type="checkbox"> Remember me</label>
+            </div>
+            <button type="submit">Login</button>
+            <div class="signUp-link">
+                <p>Don't have an account? <a href="#" class="signUpBtn-link">Sign Up</a></p>
+            </div>
+            <div class="error-message" style="background-color:rgb(255, 99, 71); text-align:center; border-radius: 20px;
+  padding: 5px;">
+                @ViewBag.error
+            </div>
         </div>
-        <div class="remember">
-            <label><input type="checkbox"> Remember me</label>
-        </div>
-        <button type="submit">Login</button>
-        <div class="signUp-link">
-            <p>Don't have an account? <a href="#" class="signUpBtn-link">Sign Up</a></p>
-        </div>
-    </div>
+    
 }
 
-<div class="error-message">
-    @ViewBag.error
-</div>
+
 
 
         

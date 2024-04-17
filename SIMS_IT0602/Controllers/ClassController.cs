@@ -55,28 +55,26 @@ namespace SIMS_IT0602.Controllers
             return RedirectToAction("ManageClass");
         }
         [HttpPost] // Submit new Teacher
-        public IActionResult NewClass(Class @class, List<Teacher>teachers)
+        public IActionResult NewClass(Class @class)
         {
             if (ModelState.IsValid)
             {
                 // Add the new class to the list
                 classes.Add(@class);
-
                 // Serialize the classes list to JSON
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 string jsonString = JsonSerializer.Serialize(classes, options);
-                ViewBag.SelectTeacher = new SelectList(teachers, "Name", "Name");
-                ViewBag.SelectTeacher = teachers;
                 // Save the JSON data to a file
                 System.IO.File.WriteAllText("class.json", jsonString);
-
                 // Redirect to the action to manage classes
                 return RedirectToAction("ManageClass", new { classes = jsonString });
             }
             else
             {
                 // If model state is not valid, return to the view with validation errors
-                return View("NewClass", @class);
+                List<Teacher> teachers = LoadTeacherFromFile("teacher.json");
+                ViewBag.SelectTeacher = teachers;
+                return View();
             }
         }
 
@@ -87,9 +85,12 @@ namespace SIMS_IT0602.Controllers
             ViewBag.SelectTeacher = teachers;
             return View();
         }
+
+
         [HttpGet] // Click hyperlink
         public IActionResult EditClass(int id)
         {
+
             var @class = classes.FirstOrDefault(s => s.Id == id);
             if (@class == null)
             {

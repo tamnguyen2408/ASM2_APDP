@@ -1,20 +1,26 @@
 [
   {
-    "Id": 1,
-    "Name": "Website Design \u0026 Development",
-    "Class": "IT0602",
-    "Major": "IT",
-    "Lecturer": "Nguyen Thanh Trieu",
-    "Status": "Active",
-    "Teacher": null
+    "Id": 123,
+    "Name": "BI",
+    "Class": "IT0603",
+    "Major": "GD",
+    "Lecturer": "Hoandzai",
+    "Status": "Inactive"
   },
   {
-    "Id": 3,
-    "Name": "SDLC",
-    "Class": "IT0602",
+    "Id": 1,
+    "Name": "Design",
+    "Class": "IT0603",
     "Major": "IT",
     "Lecturer": "Nguyen Thanh Trieu",
-    "Status": "Active",
-    "Teacher": null
+    "Status": "Active"
+  },
+  {
+    "Id": 2,
+    "Name": "Computing",
+    "Class": "IT0603",
+    "Major": "IT",
+    "Lecturer": "Nguyen Thanh Trieu",
+    "Status": "Active"
   }
 ]

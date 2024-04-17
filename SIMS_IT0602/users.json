@@ -40,5 +40,17 @@
     "Pass": "123",
     "ConfirmPass": "123",
     "Role": "Student"
+  },
+  {
+    "UserName": "hoandzai",
+    "Pass": "123",
+    "ConfirmPass": "123",
+    "Role": "Student"
+  },
+  {
+    "UserName": "hungngul",
+    "Pass": "123",
+    "ConfirmPass": "123",
+    "Role": "Student"
   }
 ]

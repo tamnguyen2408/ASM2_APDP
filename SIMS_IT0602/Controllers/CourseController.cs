@@ -29,24 +29,30 @@ namespace SIMS_IT0602.Controllers
 
         }
         [HttpPost]
-        public IActionResult CreateCourse(Course course, List<Class> classes)
+        public IActionResult CreateCourse(Course course)
         {
-            courses.Add(course);
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(courses, options);
-
-            // Populate ViewBag.SelectClass with the list of classes
-            ViewBag.SelectClass = new SelectList(classes, "ClassName", "ClassName");
-
-            // Populate ViewBag.SelectClass with the list of classes
-            ViewBag.SelectClass = classes;
-            //Save file
-            using (StreamWriter writer = new StreamWriter("course.json"))
+            if (ModelState.IsValid)
             {
-                writer.Write(jsonString);
-            }
+                courses.Add(course);
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string jsonString = JsonSerializer.Serialize(courses, options);
+                //Save file
+                System.IO.File.WriteAllText("course.json", jsonString);
 
-            return RedirectToAction("ManageCourse", new { courses = jsonString });
+                return RedirectToAction("ManageCourse", new { courses = jsonString });
+            }
+            else
+            {
+
+                // Load the list of teachers from the file
+                List<Teacher> teachers = LoadTeacherFromFile("teacher.json");
+                List<Class> classes = LoadClassFromFile("class.json");
+
+                // Populate ViewBag.SelectTeacher with the list of teachers
+                ViewBag.SelectTeacher = teachers;
+                ViewBag.SelectClass = classes;
+                return View();
+            }
         }
 
         [HttpGet]
@@ -111,61 +117,83 @@ namespace SIMS_IT0602.Controllers
         [HttpGet]
         public IActionResult EditCourse(int Id)
         {
-            var course = courses.FirstOrDefault(s => s.Id == Id);
-            if (course == null)
-            {
-                return NotFound(); // Return 404 error if course is not found
-            }
+         
+                var course = courses.FirstOrDefault(s => s.Id == Id);
+                if (course == null)
+                {
+                    return NotFound(); // Return 404 error if course is not found
+                }
 
-            // Load the list of teachers from the file
-            List<Teacher> teachers = LoadTeacherFromFile("teacher.json");
-            List<Class> classes = LoadClassFromFile("class.json");
+                // Load the list of teachers from the file
+                List<Teacher> teachers = LoadTeacherFromFile("teacher.json");
+                List<Class> classes = LoadClassFromFile("class.json");
 
-            // Populate ViewBag.SelectTeacher with the list of teachers
-            ViewBag.SelectTeacher = teachers;
-            ViewBag.SelectClass = classes;
+                // Populate ViewBag.SelectTeacher with the list of teachers
+                ViewBag.SelectTeacher = teachers;
+                ViewBag.SelectClass = classes;
 
-            // Populate ViewBag.StatusOptions with the status options for the dropdown list
-            ViewBag.StatusOptions = new SelectList(new[]
-            {
-        new SelectListItem { Text = "Active", Value = "Active" },
-        new SelectListItem { Text = "Inactive", Value = "Inactive" },
-        // Add more status options as needed
-    }, "Value", "Text", course.Status); // Set the selected value to the current status of the course
+                // Populate ViewBag.StatusOptions with the status options for the dropdown list
+                ViewBag.StatusOptions = new SelectList(new[]
+                {
+                    new SelectListItem { Text = "Active", Value = "Active" },
+                    new SelectListItem { Text = "Inactive", Value = "Inactive" },
+                    // Add more status options as needed
+                }, "Value", "Text", course.Status); // Set the selected value to the current status of the course
 
-            return View("EditCourse", course); // Pass the course object to the Edit view
+                return View("EditCourse", course); // Pass the course object to the Edit view
+            
+
         }
 
         [HttpPost]
-        public IActionResult EditCourse(Course course, List<Class> classes)
+        public IActionResult EditCourse(Course course)
         {
-            var existingCourse = courses.FirstOrDefault(t => t.Id == course.Id);
-            if (existingCourse == null)
+            if (ModelState.IsValid)
             {
-                return NotFound(); // Return 404 error if course is not found
+                var existingCourse = courses.FirstOrDefault(t => t.Id == course.Id);
+                if (existingCourse == null)
+                {
+                    return NotFound(); // Return 404 error if course is not found
+                }
+
+                // Update the existing course with the new values
+                existingCourse.Name = course.Name;
+                existingCourse.Class = course.Class;
+                existingCourse.Major = course.Major;
+                existingCourse.Lecturer = course.Lecturer;
+                existingCourse.Status = course.Status; // Update the status property
+
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string jsonString = JsonSerializer.Serialize(courses, options);
+
+
+                // Redirect to the ManageCourse action method
+                return RedirectToAction("ManageCourse");
             }
+            else
+            {
+                // Load the list of teachers from the file
+                List<Teacher> teachers = LoadTeacherFromFile("teacher.json");
+                List<Class> classes = LoadClassFromFile("class.json");
 
-            // Update the existing course with the new values
-            existingCourse.Name = course.Name;
-            existingCourse.Class = course.Class;
-            existingCourse.Major = course.Major;
-            existingCourse.Lecturer = course.Lecturer;
-            existingCourse.Status = course.Status; // Update the status property
+                // Populate ViewBag.SelectTeacher with the list of teachers
+                ViewBag.SelectTeacher = teachers;
+                ViewBag.SelectClass = classes;
 
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(courses, options);
+                // Populate ViewBag.StatusOptions with the status options for the dropdown list
+                ViewBag.StatusOptions = new SelectList(new[]
+                {
+                    new SelectListItem { Text = "Active", Value = "Active" },
+                    new SelectListItem { Text = "Inactive", Value = "Inactive" },
+                    // Add more status options as needed
+                }, "Value", "Text", course.Status); // Set the selected value to the current status of the course
 
-            // Populate ViewBag.SelectClass with the list of classes
-            ViewBag.SelectClass = classes;
+                return View("EditCourse", course); // Pass the course object to the Edit view
 
-            // Save the updated list of courses to the file
-            System.IO.File.WriteAllText("course.json", jsonString);
-
-            // Redirect to the ManageCourse action method
-            return RedirectToAction("ManageCourse");
+            }
         }
 
-        public List<Course>? LoadCourseFromFile(string fileName)
+            public List<Course>? LoadCourseFromFile(string fileName)
         {
             string readText = System.IO.File.ReadAllText("course.json");
             return JsonSerializer.Deserialize<List<Course>>(readText);

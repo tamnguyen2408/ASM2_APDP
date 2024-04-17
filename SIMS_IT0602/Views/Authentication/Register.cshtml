@@ -19,6 +19,10 @@
         <div class="input-group">
             @Html.PasswordFor(m => m.ConfirmPass)
             <label class="label">Confirm Password</label>
+        </div>
+
+        <div class="error-message" style=" color:aliceblue;  border-style: solid; text-align:center; border-radius: 20px;
+        padding: 5px;">
             @Html.ValidationMessageFor(m => m.ConfirmPass)
         </div>
 
@@ -30,19 +34,17 @@
             </div>
             <input type="hidden" name="Role" id="selectedRole" value="">
         </div>
-        <div class="remember">
-            <label><input type="checkbox"> I agree to the terms & conditions</label>
-        </div>
 
         <button type="submit">Sign Up</button>
 
         <div class="signUp-link">
             <p>Already have an account? <a href="#" class="signInBtn-link">Sign In</a></p>
         </div>
+
     </div>
 }
 
-    }
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Add event listener to the sign-up link
